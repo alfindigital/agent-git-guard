@@ -1,0 +1,12 @@
+{
+  "name": "agent-git-guard",
+  "version": "0.1.0",
+  "description": "Let several AI coding agents share one git repo safely: a PreToolUse hook that blocks sweeping git commands, plus a token-based commit lock.",
+  "license": "MIT",
+  "private": true,
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": ["claude-code", "codex", "ai-agents", "git", "hooks", "pre-commit", "multi-agent", "lock"]
+}
