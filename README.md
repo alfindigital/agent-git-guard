@@ -2,6 +2,10 @@
 
 Run several AI coding agents (Claude Code, Codex, ...) in **one git repository** without them wiping out each other's work.
 
+![agent-git-guard demo: git add -A, commit -a and reset --hard are blocked; a commit without the lock is refused; with the lock token it goes through and the other agent's file is untouched](assets/demo.gif)
+
+<sub>Replay of a real run on 22 Nov 2026: messages are the tool's real output, trimmed, with paths shortened.</sub>
+
 When two agents share a working tree, the usual damage comes from a few habits that are fine for a lone human:
 
 - `git add -A` / `git commit -a` — sweeps the *other* agent's half-finished files into your commit
