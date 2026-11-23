@@ -34,8 +34,10 @@ function parse(argv) {
   return opts;
 }
 
+const ME = `node "${__filename.replace(/\\/g, '/')}"`;
+
 function howTo() {
-  const me = `node "${__filename.replace(/\\/g, '/')}"`;
+  const me = ME;
   return [
     'How to commit while other agents share this repo:',
     `  1. ${me} acquire --name <task>        -> note token=<token>`,
@@ -60,7 +62,7 @@ function run(argv, env = process.env, out = (s) => process.stdout.write(`${s}\n`
       const r = lock.acquire(common, { name: opts.name || 'agent', agent: opts.agent || '', ttlMinutes: ttl, token });
       if (!r.ok) { out(`BLOCKED by ${lock.describe(r.holder)}`); return 3; }
       out(`ACQUIRED token=${r.token} ttl=${ttl}min${r.renewed ? ' (renewed)' : ''}`);
-      out(`release with: node agent-lock.js release --token ${r.token}`);
+      out(`release with: ${ME} release --token ${r.token}`);
       return 0;
     }
     case 'renew': {

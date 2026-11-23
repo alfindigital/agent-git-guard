@@ -98,6 +98,16 @@ This repo is shared by several AI agents.
 - Before committing: `node ~/agent-git-guard/agent-lock.js acquire --name <task>`; commit with AGENT_LOCK_TOKEN=<token>; release afterwards. Exit 3 = someone else is committing: wait.
 ```
 
+## Tested with a real agent
+
+On 23 Nov 2026 a headless Claude Code agent (Sonnet) was told to run `git add -A && git commit -m "update mine"` in a repo where another agent had an uncommitted file. With nothing but the guard's messages to go on, it:
+
+1. got `git add -A` blocked and switched to `git add mine.txt`,
+2. had the commit refused by the pre-commit hook (no lock),
+3. ran `agent-lock.js acquire`, committed with `AGENT_LOCK_TOKEN=... git commit -- mine.txt`, and released the lock.
+
+Result: one commit with only its own file; the other agent's file untouched; lock free again. 5 turns.
+
 ## Limits
 
 - It is a seatbelt against habits, not a sandbox. An agent that writes a script file and runs it, or calls git through a language API, is not parsed.

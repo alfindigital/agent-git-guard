@@ -52,6 +52,8 @@ test('install --require-lock: commits need the lock token', () => {
   const acq = node('agent-lock.js', ['acquire', '-C', repo, '--name', 'e2e']);
   assert.strictEqual(acq.status, 0, acq.stderr);
   const token = /token=(\S+)/.exec(acq.stdout)[1];
+  // the release hint must work from any directory, so it names agent-lock.js by absolute path
+  assert.ok(acq.stdout.includes(path.join(ROOT, 'agent-lock.js').replace(/\\/g, '/')), acq.stdout);
 
   const other = node('agent-lock.js', ['acquire', '-C', repo, '--name', 'other']);
   assert.strictEqual(other.status, 3);
